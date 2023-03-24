@@ -1,18 +1,31 @@
-version: '3.7'
+version: '3'
 services:
   app:
+    container_name:service-flask-app
     build: ./app
     ports:
-      - '8000:8000'
+      - "8000:8000"
     networks:
       - flask
+    depend_on:
+      - db
+
   consumer:
     build: ./consumer
     depends_on:
+      - db
       - app
     networks:
       - flask
+
+  db:
+    image: nouchka/sqlite3:latest
+
+    environment:
+      - SQLITE3_DB=database.db
+
+
+
 networks:
   flask:
     driver: bridge
-
