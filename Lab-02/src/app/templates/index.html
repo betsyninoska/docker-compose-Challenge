@@ -1,14 +1,15 @@
-{% extends 'base.html' %}
+<!DOCTYPE html>
+{% extends "base.html" %}
 
 {% block content %}
-    <h1>{% block title %} Challenge 4 Docker {% endblock %}</h1>
-    {% for post in posts %}
-        <a href=#>
-            <h2>{{ post['title'] }}</h2>
-            <b>{{ post['content'] }}</b>
+   {% for post in posts %}
+       <article class="post">
+           <time class="date">
+               {{ post.created }}
+           </time>
+           <h2><a href="">{{ post.title }}</a></h2>
+           <p>{{ post.content }}</a>
 
-        </a>
-        <span class=badge badge-primary>{{ post['created'] }}</span>
-        <hr>
-    {% endfor %}
+       </article>
+   {% endfor %}
 {% endblock %}
