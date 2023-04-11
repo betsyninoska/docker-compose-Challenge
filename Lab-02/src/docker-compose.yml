@@ -1,7 +1,7 @@
 version: '3'
 services:
   app:
-    container_name:service-flask-app
+    container_name:flask-app
     build: ./app
     ports:
       - "8000:8000"
@@ -9,21 +9,22 @@ services:
       - flask
     depend_on:
       - db
-
-  consumer:
-    build: ./consumer
-    depends_on:
-      - db
-      - app
-    networks:
-      - flask
+    environment:
+      NODE_ENV: production
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_USER: root
+      DB_PASSWORD: abc123
+      DB_NAME: challenge
 
   db:
-    image: nouchka/sqlite3:latest
-
-    environment:
-      - SQLITE3_DB=database.db
-
+      image: mysql:8.0.21
+      ports:
+        - "30000:3306"
+      environment:
+        MYSQL_ROOT_PASSWORD: root
+      volumes:
+        - './data:/var/lib/mysql'
 
 
 networks:
