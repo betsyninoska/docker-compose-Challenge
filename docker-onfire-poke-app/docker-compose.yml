@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+
+  frontend:
+    container_name: front-poke-app
+    build: ./frontend-pokemon-app
+    environment:
+      - REACT_APP_URL_DEVELOPMENT=http://locahost:8000
+    ports:
+      - 3000:3000
+    depends_on:
+      - backend
+    networks:
+      - poke    
+
+  backend:
+    container_name: back-poke-app
+    build: ./backend-pokemon-app
+    ports:
+      - 8000:8000
+    networks:
+      - poke    
+
+networks:
+  poke:
